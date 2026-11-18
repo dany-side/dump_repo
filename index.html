@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cybersecurity Skill Progression & Career Paths Framework (NIST & MITRE Aligned)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    width: 3840px;
+    height: 2160px;
+    background-color: #F8FAFC;
+    background-image: 
+      radial-gradient(#CBD5E1 1.2px, transparent 1.2px),
+      linear-gradient(to right, #F1F5F9 1.5px, transparent 1.5px),
+      linear-gradient(to bottom, #F1F5F9 1.5px, transparent 1.5px);
+    background-size: 32px 32px, 128px 128px, 128px 128px;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #0F172A;
+    overflow: hidden;
+    position: relative;
+    padding: 26px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* SVG Connections Overlay */
+  #connections-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3840px;
+    height: 2160px;
+    pointer-events: none;
+    z-index: 15;
+  }
+
+  /* Header Container */
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2.5px solid #CBD5E1;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 25;
+    flex-shrink: 0;
+  }
+
+  .title-group h1 {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #0F172A;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .title-group h1 .accent-badge {
+    background: #0284C7;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 5px 16px;
+    border-radius: 8px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+  }
+
+  .standards-strip {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .std-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .std-nist { background: #EEF2FF; color: #3730A3; border: 1.5px solid #C7D2FE; }
+  .std-csf { background: #F0FDF4; color: #166534; border: 1.5px solid #BBF7D0; }
+  .std-ir { background: #EFF6FF; color: #1E40AF; border: 1.5px solid #BFDBFE; }
+  .std-mitre { background: #FEF2F2; color: #991B1B; border: 1.5px solid #FECACA; }
+  .std-owasp { background: #FFFBEB; color: #92400E; border: 1.5px solid #FDE68A; }
+
+  /* Legend Box */
+  .legend-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 12px;
+    padding: 10px 18px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  }
+
+  .legend-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-right: 12px;
+    border-right: 2px solid #E2E8F0;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .legend-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 800;
+  }
+
+  .badge-tier0 { background: #E2E8F0; color: #334155; }
+  .badge-trackA { background: #FEE2E2; color: #DC2626; border: 1px solid #FCA5A5; }
+  .badge-trackB { background: #DBEAFE; color: #2563EB; border: 1px solid #93C5FD; }
+  .badge-trackC { background: #D1FAE5; color: #059669; border: 1px solid #6EE7B7; }
+
+  .legend-divider {
+    width: 2px;
+    height: 30px;
+    background: #E2E8F0;
+  }
+
+  .line-legend {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #334155;
+  }
+
+  .line-demo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Main Layout */
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    z-index: 20;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  .tier-row {
+    display: flex;
+    align-items: stretch;
+    gap: 22px;
+  }
+
+  .tier-sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 3px solid #94A3B8;
+    padding-right: 16px;
+  }
+
+  .tier-label {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #0F172A;
+    text-transform: uppercase;
+    line-height: 1.22;
+  }
+
+  .tier-sublabel {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #64748B;
+    margin-top: 6px;
+    line-height: 1.35;
+  }
+
+  .tier-content {
+    flex-grow: 1;
+    display: flex;
+    gap: 22px;
+  }
+
+  /* Track Containers */
+  .track-col {
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+  }
+
+  .track-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid rgba(0,0,0,0.06);
+    flex-shrink: 0;
+  }
+
+  .track-header-title {
+    font-size: 15.5px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .track-header-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* Track Theming */
+  .track-a {
+    background: rgba(254, 242, 242, 0.85);
+    border: 2px solid #FECACA;
+  }
+  .track-a .track-header-title { color: #DC2626; }
+  .track-a .track-header-meta { background: #FEE2E2; color: #B91C1C; }
+
+  .track-b {
+    background: rgba(239, 246, 255, 0.85);
+    border: 2px solid #BFDBFE;
+  }
+  .track-b .track-header-title { color: #2563EB; }
+  .track-b .track-header-meta { background: #DBEAFE; color: #1D4ED8; }
+
+  .track-c {
+    background: rgba(236, 253, 245, 0.85);
+    border: 2px solid #A7F3D0;
+  }
+  .track-c .track-header-title { color: #059669; }
+  .track-c .track-header-meta { background: #D1FAE5; color: #047857; }
+
+  .track-base {
+    background: rgba(241, 245, 249, 0.95);
+    border: 2px solid #CBD5E1;
+  }
+  .track-base .track-header-title { color: #334155; }
+  .track-base .track-header-meta { background: #E2E8F0; color: #475569; }
+
+  /* Grid Layouts */
+  .grid-2x4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+    flex-grow: 1;
+  }
+
+  .grid-2x3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+    flex-grow: 1;
+  }
+
+  .grid-1x4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    flex-grow: 1;
+  }
+
+  .grid-1x3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    flex-grow: 1;
+  }
+
+  .grid-1x6 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  .grid-1x8 {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 12px;
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  /* Node Cards */
+  .node-card {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border: 1.8px solid #E2E8F0;
+  }
+
+  .node-card.card-a { border-color: #FCA5A5; }
+  .node-card.card-b { border-color: #93C5FD; }
+  .node-card.card-c { border-color: #6EE7B7; }
+  .node-card.card-core-a { border-color: #F87171; border-top: 4px solid #DC2626; }
+  .node-card.card-core-b { border-color: #60A5FA; border-top: 4px solid #2563EB; }
+  .node-card.card-core-c { border-color: #34D399; border-top: 4px solid #059669; }
+  .node-card.card-found { border-color: #CBD5E1; }
+
+  .node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .node-title {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.25;
+  }
+
+  .node-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .badge-red { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+  .badge-blue { background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; }
+  .badge-green { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+  .badge-slate { background: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; }
+  .badge-purple { background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; }
+
+  .node-desc {
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+    margin-top: 6px;
+    line-height: 1.35;
+  }
+
+  .node-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid #F1F5F9;
+  }
+
+  .node-framework {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+  }
+
+  .node-role-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0F172A;
+  }
+
+  /* Inline Track Bridge Notations */
+  .bridge-indicator {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .bridge-purple { background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; }
+  .bridge-grc { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+</style>
+</head>
+<body>
+
+<!-- Master SVG for Connection Lines -->
+<svg id="connections-svg">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arrow-solid-dark" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#334155" />
+    </marker>
+    <marker id="arrow-solid-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#DC2626" />
+    </marker>
+    <marker id="arrow-solid-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563EB" />
+    </marker>
+    <marker id="arrow-solid-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#059669" />
+    </marker>
+    <marker id="arrow-dashed-slate" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748B" />
+    </marker>
+    <!-- Bidirectional Horizontal Markers -->
+    <marker id="arrow-purple-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 8 1.5 L 0 5 L 8 8.5 z" fill="#9333EA" />
+    </marker>
+    <marker id="arrow-purple-end" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#9333EA" />
+    </marker>
+    <marker id="arrow-green-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 8 1.5 L 0 5 L 8 8.5 z" fill="#059669" />
+    </marker>
+    <marker id="arrow-green-end" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#059669" />
+    </marker>
+  </defs>
+
+  <!-- Group for rendered path lines -->
+  <g id="dynamic-paths"></g>
+</svg>
+
+<!-- Header -->
+<div class="header-container">
+  <div class="title-group">
+    <h1>
+      CYBERSECURITY SKILL PROGRESSION &amp; CAREER PATHS FRAMEWORK
+      <span class="accent-badge">NIST &amp; MITRE ALIGNED</span>
+    </h1>
+    <div class="standards-strip">
+      <span class="std-pill std-nist">NIST SP 800-181 Rev. 1 (NICE Workforce Framework)</span>
+      <span class="std-pill std-csf">NIST CSF 2.0 (Govern · Identify · Protect · Detect · Respond · Recover)</span>
+      <span class="std-pill std-ir">NIST SP 800-61 Rev. 3 (Incident Response &amp; Coordination)</span>
+      <span class="std-pill std-mitre">MITRE ATT&amp;CK v15 (Enterprise &amp; ICS)</span>
+      <span class="std-pill std-owasp">OWASP WSTG v4.2 &amp; ASVS v4.0</span>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-box">
+    <div class="legend-title">LEGEND</div>
+    <div class="legend-item"><span class="legend-badge badge-tier0">Tier 0</span> Foundations</div>
+    <div class="legend-item"><span class="legend-badge badge-trackA">Track A</span> Offensive (Red Team)</div>
+    <div class="legend-item"><span class="legend-badge badge-trackB">Track B</span> Defensive (Blue Team)</div>
+    <div class="legend-item"><span class="legend-badge badge-trackC">Track C</span> GRC &amp; Leadership</div>
+    <div class="legend-divider"></div>
+    <div class="line-legend">
+      <div class="line-demo">
+        <svg width="42" height="12"><line x1="2" y1="6" x2="34" y2="6" stroke="#1E293B" stroke-width="3" marker-end="url(#arrow-solid-dark)" /></svg>
+        <span>Direct Prerequisite (Garis Lurus)</span>
+      </div>
+      <div class="line-demo">
+        <svg width="42" height="12"><line x1="2" y1="6" x2="34" y2="6" stroke="#64748B" stroke-width="2.2" stroke-dasharray="8,5" marker-end="url(#arrow-dashed-slate)" /></svg>
+        <span>Recommended / Cross-Domain (Garis Putus-Putus)</span>
+      </div>
+      <div class="line-demo">
+        <svg width="46" height="12">
+          <line x1="6" y1="6" x2="40" y2="6" stroke="#9333EA" stroke-width="2.5" marker-start="url(#arrow-purple-start)" marker-end="url(#arrow-purple-end)" />
+        </svg>
+        <span>Complementary / Purple Team (&harr;)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Layout Tiers -->
+<div class="main-layout">
+
+  <!-- TIER 3: ADVANCED MASTERY -->
+  <div class="tier-row" id="tier-3-row" style="height: 480px;">
+    <div class="tier-sidebar">
+      <div class="tier-label">TIER 3: ADVANCED MASTERY</div>
+      <div class="tier-sublabel">Expert Research, High-Impact Operations &amp; Executive Cyber Leadership</div>
+      <div style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #94A3B8;">
+        NICE: OV-EXL · AN-EXP · IN-FOR
+      </div>
+    </div>
+
+    <div class="tier-content">
+      <!-- Track A Tier 3 -->
+      <div class="track-col track-a" id="track-a-tier3" style="flex: 1.1;">
+        <div class="track-header">
+          <div class="track-header-title">Offensive Security Mastery (Red Team)</div>
+          <div class="track-header-meta">MITRE ATT&amp;CK C2 · KERNEL · ZERO-DAY</div>
+        </div>
+        <div class="grid-1x4">
+          <div class="node-card card-a">
+            <div class="node-header">
+              <div class="node-title">Exploit Development</div>
+              <span class="node-badge badge-red">AN-EXP-001</span>
+            </div>
+            <div class="node-desc">Binary exploitation, heap sprays, ROP chains, kernel driver exploits &amp; zero-day research.</div>
+            <div class="node-footer">
+              <span class="node-framework">C / ASM / Debuggers</span>
+              <span class="node-role-code">L4 Mastery</span>
+            </div>
+          </div>
+
+          <div class="node-card card-a">
+            <div class="node-header">
+              <div class="node-title">Red Team Operations</div>
+              <span class="node-badge badge-red">ATT&amp;CK Matrix</span>
+            </div>
+            <div class="node-desc">Full-scope physical/social/cyber adversary simulation, defense evasion &amp; stealth persistence.</div>
+            <div class="node-footer">
+              <span class="node-framework">NICE: CO-OPS-001</span>
+              <span class="node-role-code">L4 Mastery</span>
+            </div>
+          </div>
+
+          <div class="node-card card-a">
+            <div class="node-header">
+              <div class="node-title">Adversary Emulation</div>
+              <span class="node-badge badge-red">TTP Replication</span>
+            </div>
+            <div class="node-desc">APT profiling, customized threat emulation plans, Caldera &amp; automated attack graphs.</div>
+            <div class="node-footer">
+              <span class="node-framework">MITRE Engenuity</span>
+              <span class="node-role-code">L4 Mastery</span>
+            </div>
+          </div>
+
+          <div class="node-card card-a">
+            <div class="node-header">
+              <div class="node-title">Malware / C2 Research</div>
+              <span class="node-badge badge-red">AN-EXP-002</span>
+            </div>
+            <div class="node-desc">Custom implant design, malleable C2, in-memory execution, process injection &amp; EDR bypass.</div>
+            <div class="node-footer">
+              <span class="node-framework">Golang / Rust / C++</span>
+              <span class="node-role-code">L4 Mastery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Track B Tier 3 -->
+      <div class="track-col track-b" id="track-b-tier3" style="flex: 1.4;">
+        <div class="track-header">
+          <div class="track-header-title">Defensive Security Mastery (Blue Team)</div>
+          <div class="track-header-meta">NIST CSF 2.0 [DE/RS] · SIGMA · DFIR</div>
+        </div>
+        <div class="grid-2x3">
+          <div class="node-card card-b">
+            <div class="node-header">
+              <div class="node-title">Detection Engineering</div>
+              <span class="node-badge badge-blue">CSF: DE.AE</span>
+            </div>
+            <div class="node-desc">Sigma &amp; YARA rules, telemetry correlation, SIEM/EDR detection lifecycle &amp; CI/CD testing.</div>
+            <div class="node-footer">
+              <span class="node-framework">ATT&amp;CK Mapped</span>
+              <span class="node-role-code">PR-CDA-001</span>
+            </div>
+          </div>
+
+          <div class="node-card card-b">
+            <div class="node-header">
+              <div class="node-title">Threat Hunting</div>
+              <span class="node-badge badge-blue">CSF: DE.CM</span>
+            </div>
+            <div class="node-desc">Hypothesis-driven adversary hunting, behavioral analytics, outlier &amp; baseline analysis.</div>
+            <div class="node-footer">
+              <span class="node-framework">NIST SP 800-61r3</span>
+              <span class="node-role-code">PR-CDA-002</span>
+            </div>
+          </div>
+
+          <div class="node-card card-b">
+            <div class="node-header">
+              <div class="node-title">Malware Analysis &amp; RE</div>
+              <span class="node-badge badge-blue">IN-FOR-002</span>
+            </div>
+            <div class="node-desc">Static/dynamic analysis, disassemblers (Ghidra/IDA Pro), deobfuscation &amp; unpackers.</div>
+            <div class="node-footer">
+              <span class="node-framework">Sandbox / x86 RE</span>
+              <span class="node-role-code">L4 Mastery</span>
+            </div>
+          </div>
+
+          <div class="node-card card-b">
+            <div class="node-header">
+              <div class="node-title">Advanced DFIR</div>
+              <span class="node-badge badge-blue">NIST SP 800-61r3</span>
+            </div>
+            <div class="node-desc">Enterprise memory forensics, disk carving, timeline reconstruction &amp; chain of custody.</div>
+            <div class="node-footer">
+              <span class="node-framework">IN-FOR-001</span>
+              <span class="node-role-code">CSF: RS.AN</span>
+            </div>
+          </div>
+
+          <div class="node-card card-b">
+            <div class="node-header">
+              <div class="node-title">Threat Intelligence (CTI)</div>
+              <span class="node-badge badge-blue">AN-TGT-001</span>
+            </div>
+            <div class="node-desc">Strategic/tactical CTI, Diamond Model, Cyber Kill Chain, STIX/TAXII &amp; dark web actor tracking.</div>
+            <div class="node-footer">
+              <span class="node-framework">CSF 2.0: ID.RA</span>
+              <span class="node-role-code">L4 Mastery</span>
+            </div>
+          </div>
+
+          <div class="node-card card-b">
+            <div class="node-header">
+              <div class="node-title">Hardware &amp; Firmware Security</div>
+              <span class="node-badge badge-blue">SP-DEV-001</span>
+            </div>
+            <div class="node-desc">Embedded microcode, UEFI/BIOS security, JTAG/UART debugging, side-channel attacks.</div>
+            <div class="node-footer">
+              <span class="node-framework">Physical Security</span>
+              <span class="node-role-code">L4 Mastery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Track C Tier 3 -->
+      <div class="track-col track-c" id="track-c-tier3" style="flex: 0.9;">
+        <div class="track-header">
+          <div class="track-header-title">Governance &amp; Cyber Leadership</div>
+          <div class="track-header-meta">NIST CSF 2.0 [GOVERN] · CISO</div>
+        </div>
+        <div class="grid-1x3">
+          <div class="node-card card-c">
+            <div class="node-header">
+              <div class="node-title">Enterprise Cyber Risk Leadership</div>
+              <span class="node-badge badge-green">NICE: OV-EXL</span>
+            </div>
+            <div class="node-desc">CISO strategy, FAIR risk quantification, Board reporting, budgeting &amp; security culture.</div>
+            <div class="node-footer">
+              <span class="node-framework">CSF 2.0: GV.RM</span>
+              <span class="node-role-code">Executive</span>
+            </div>
+          </div>
+
+          <div class="node-card card-c">
+            <div class="node-header">
+              <div class="node-title">AI Governance &amp; Safety</div>
+              <span class="node-badge badge-green">NIST AI RMF 1.0</span>
+            </div>
+            <div class="node-desc">NIST AI Risk Mgmt, OWASP LLM Top 10, algorithmic bias, AI compliance &amp; guardrail auditing.</div>
+            <div class="node-footer">
+              <span class="node-framework">EU AI Act / ISO 42001</span>
+              <span class="node-role-code">Specialist</span>
+            </div>
+          </div>
+
+          <div class="node-card card-c">
+            <div class="node-header">
+              <div class="node-title">Cyber Resilience Strategy</div>
+              <span class="node-badge badge-green">CSF: RC.RP</span>
+            </div>
+            <div class="node-desc">Crisis management, business continuity (BCP/DR), cyber insurance &amp; regulatory liaison.</div>
+            <div class="node-footer">
+              <span class="node-framework">NICE: OV-PMA</span>
+              <span class="node-role-code">Director</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 2: DOMAIN SPECIALIZATION -->
+  <div class="tier-row" id="tier-2-row" style="height: 680px; position: relative;">
+    <div class="tier-sidebar">
+      <div class="tier-label">TIER 2: DOMAIN SPECIALIZATION</div>
+      <div class="tier-sublabel">Mid-to-Senior Professional Roles &amp; Technical Execution Pathways</div>
+      <div style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #94A3B8;">
+        NICE: PR-VAM · PR-CDA · PR-CIR · OV-MGT
+      </div>
+    </div>
+
+    <div class="tier-content">
+      <!-- Track A Tier 2 -->
+      <div class="track-col track-a" id="track-a-tier2" style="flex: 1.1;">
+        <div class="track-header">
+          <div class="track-header-title">TRACK A: OFFENSIVE SECURITY (RED TEAM)</div>
+          <div class="track-header-meta">OWASP WSTG · ATT&amp;CK MATRIX</div>
+        </div>
+        <div class="grid-2x4">
+          <!-- Row 1 Track A -->
+          <div class="node-card card-a" id="t2-a-r1-c1">
+            <div class="node-header">
+              <div class="node-title">Network Pentest</div>
+              <span class="node-badge badge-red">PR-VAM-001</span>
+            </div>
+            <div class="node-desc">Internal/external AD, Kerberoasting, NTLM relay, network pivoting &amp; lateral movement.</div>
+            <div class="node-footer"><span class="node-framework">MITRE ATT&amp;CK</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-a" id="t2-a-r1-c2">
+            <div class="node-header">
+              <div class="node-title">Web App Pentest</div>
+              <span class="node-badge badge-red">OWASP WSTG</span>
+            </div>
+            <div class="node-desc">WSTG 12 categories: Business logic, AuthN/AuthZ bypass, IDOR, SQLi, XSS, SSRF.</div>
+            <div class="node-footer"><span class="node-framework">OWASP Top 10</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-a" id="t2-a-r1-c3">
+            <div class="node-header">
+              <div class="node-title">Cloud Pentest</div>
+              <span class="node-badge badge-red">CSF: PR.AC</span>
+            </div>
+            <div class="node-desc">AWS/Azure/GCP IAM privilege escalation, misconfigurations, container breakouts.</div>
+            <div class="node-footer"><span class="node-framework">Cloud Native</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-a" id="t2-a-r1-c4">
+            <div class="node-header">
+              <div class="node-title">Mobile Pentest</div>
+              <span class="node-badge badge-red">OWASP MASTG</span>
+            </div>
+            <div class="node-desc">iOS/Android static/dynamic reversing, Frida instrumentation, API hooking &amp; keychain audit.</div>
+            <div class="node-footer">
+              <span class="node-framework">MASTG M1-M10</span>
+              <span class="bridge-indicator bridge-purple">&harr; Purple Team</span>
+            </div>
+          </div>
+
+          <!-- Row 2 Track A -->
+          <div class="node-card card-a" id="t2-a-r2-c1">
+            <div class="node-header">
+              <div class="node-title">Wireless &amp; RF</div>
+              <span class="node-badge badge-red">PR-VAM-001</span>
+            </div>
+            <div class="node-desc">Wi-Fi enterprise attacks (WPA3, 802.1X), Rogue APs, BLE sniffing &amp; SDR radio analysis.</div>
+            <div class="node-footer"><span class="node-framework">RF / Physical</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-a" id="t2-a-r2-c2">
+            <div class="node-header">
+              <div class="node-title">AI &amp; LLM Pentest</div>
+              <span class="node-badge badge-red">OWASP LLM 10</span>
+            </div>
+            <div class="node-desc">Prompt injection, jailbreaking, model poisoning, data extraction &amp; RAG exfiltration.</div>
+            <div class="node-footer"><span class="node-framework">GenAI Security</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-a" id="t2-a-r2-c3">
+            <div class="node-header">
+              <div class="node-title">IoT / OT &amp; ICS Pentest</div>
+              <span class="node-badge badge-red">ATT&amp;CK for ICS</span>
+            </div>
+            <div class="node-desc">Purdue model level testing, SCADA protocols (Modbus, DNP3, S7comm), hardware dumping.</div>
+            <div class="node-footer"><span class="node-framework">IEC 62443 Pentest</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-a" id="t2-a-r2-c4">
+            <div class="node-header">
+              <div class="node-title">Bug Bounty &amp; Research</div>
+              <span class="node-badge badge-red">Responsible Disc.</span>
+            </div>
+            <div class="node-desc">Deep attack surface reconnaissance, zero-day discovery, chaining vulnerabilities.</div>
+            <div class="node-footer">
+              <span class="node-framework">HackerOne / Bugcrowd</span>
+              <span class="bridge-indicator bridge-purple">&harr; DevSecOps</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Track B Tier 2 -->
+      <div class="track-col track-b" id="track-b-tier2" style="flex: 1.4;">
+        <div class="track-header">
+          <div class="track-header-title">TRACK B: DEFENSIVE SECURITY (BLUE TEAM)</div>
+          <div class="track-header-meta">NIST CSF 2.0 [PR/DE/RS] · NIST SP 800-61r3</div>
+        </div>
+        <div class="grid-2x4">
+          <!-- Row 1 Track B -->
+          <div class="node-card card-b" id="t2-b-r1-c1">
+            <div class="node-header">
+              <div class="node-title">SOC Operations</div>
+              <span class="node-badge badge-blue">PR-CDA-001</span>
+            </div>
+            <div class="node-desc">Tier 1-3 alert triage, SIEM correlation (Splunk/ELK), SOAR playbook execution.</div>
+            <div class="node-footer">
+              <span class="bridge-indicator bridge-purple">&harr; Red Team</span>
+              <span class="node-role-code">CSF: DE.AE</span>
+            </div>
+          </div>
+
+          <div class="node-card card-b" id="t2-b-r1-c2">
+            <div class="node-header">
+              <div class="node-title">Incident Response (IR)</div>
+              <span class="node-badge badge-blue">NIST SP 800-61r3</span>
+            </div>
+            <div class="node-desc">Triage, containment, eradication, post-incident analysis &amp; enterprise coordination.</div>
+            <div class="node-footer"><span class="node-framework">CSF: RS.CO / RS.MI</span><span class="node-role-code">PR-CIR-001</span></div>
+          </div>
+
+          <div class="node-card card-b" id="t2-b-r1-c3">
+            <div class="node-header">
+              <div class="node-title">Digital Forensics</div>
+              <span class="node-badge badge-blue">IN-FOR-001</span>
+            </div>
+            <div class="node-desc">Disk imaging, memory dumps, Windows/Linux event log forensic analysis.</div>
+            <div class="node-footer"><span class="node-framework">Forensics Toolkit</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-b" id="t2-b-r1-c4">
+            <div class="node-header">
+              <div class="node-title">Cloud Security Eng.</div>
+              <span class="node-badge badge-blue">CSF: PR.PS</span>
+            </div>
+            <div class="node-desc">CSPM, CWPP, CIEM, Kubernetes runtime security, immutable infrastructure.</div>
+            <div class="node-footer">
+              <span class="node-framework">AWS / Azure / GCP</span>
+              <span class="bridge-indicator bridge-grc">&harr; Governance</span>
+            </div>
+          </div>
+
+          <!-- Row 2 Track B -->
+          <div class="node-card card-b" id="t2-b-r2-c1">
+            <div class="node-header">
+              <div class="node-title">DevSecOps</div>
+              <span class="node-badge badge-blue">SP-DEV-001</span>
+            </div>
+            <div class="node-desc">CI/CD pipeline hardening, SAST/DAST/SCA automation, policy-as-code &amp; secrets mgmt.</div>
+            <div class="node-footer">
+              <span class="bridge-indicator bridge-purple">&harr; App Feedback</span>
+              <span class="node-role-code">L3 Spec</span>
+            </div>
+          </div>
+
+          <div class="node-card card-b" id="t2-b-r2-c2">
+            <div class="node-header">
+              <div class="node-title">Secure Coding (AppSec)</div>
+              <span class="node-badge badge-blue">OWASP ASVS</span>
+            </div>
+            <div class="node-desc">Threat modeling (STRIDE), secure code reviews, dependency auditing &amp; memory safety.</div>
+            <div class="node-footer"><span class="node-framework">ASVS Level 1-3</span><span class="node-role-code">SP-DEV-002</span></div>
+          </div>
+
+          <div class="node-card card-b" id="t2-b-r2-c3">
+            <div class="node-header">
+              <div class="node-title">Applied Cryptography</div>
+              <span class="node-badge badge-blue">CSF: PR.DS</span>
+            </div>
+            <div class="node-desc">Enterprise PKI, TLS 1.3 configuration, HSM key lifecycle &amp; Post-Quantum planning.</div>
+            <div class="node-footer"><span class="node-framework">FIPS 140-3</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-b" id="t2-b-r2-c4">
+            <div class="node-header">
+              <div class="node-title">ICS / OT Defense</div>
+              <span class="node-badge badge-blue">IEC 62443</span>
+            </div>
+            <div class="node-desc">Purdue architecture zoning, industrial anomaly detection, SCADA firewall defense.</div>
+            <div class="node-footer">
+              <span class="node-framework">Critical Infra</span>
+              <span class="bridge-indicator bridge-grc">&harr; Risk Audit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Track C Tier 2 -->
+      <div class="track-col track-c" id="track-c-tier2" style="flex: 0.9;">
+        <div class="track-header">
+          <div class="track-header-title">TRACK C: GRC &amp; COMPLIANCE</div>
+          <div class="track-header-meta">NIST CSF 2.0 [GOVERN/IDENTIFY]</div>
+        </div>
+        <div class="grid-2x3">
+          <!-- Row 1 Track C -->
+          <div class="node-card card-c" id="t2-c-r1-c1">
+            <div class="node-header">
+              <div class="node-title">Cybersecurity Governance</div>
+              <span class="node-badge badge-green">CSF: GV.OC</span>
+            </div>
+            <div class="node-desc">Security policy architecture, charter design, ISO/IEC 27001 &amp; NIST CSF 2.0 program management.</div>
+            <div class="node-footer">
+              <span class="bridge-indicator bridge-grc">&harr; Blue Team</span>
+              <span class="node-role-code">NICE: OV-PMA</span>
+            </div>
+          </div>
+
+          <div class="node-card card-c" id="t2-c-r1-c2">
+            <div class="node-header">
+              <div class="node-title">Enterprise Risk Mgmt</div>
+              <span class="node-badge badge-green">NIST SP 800-30/37</span>
+            </div>
+            <div class="node-desc">Risk register management, threat modeling, business impact analysis (BIA) &amp; mitigation planning.</div>
+            <div class="node-footer"><span class="node-framework">CSF: ID.RA</span><span class="node-role-code">OV-MGT-001</span></div>
+          </div>
+
+          <div class="node-card card-c" id="t2-c-r1-c3">
+            <div class="node-header">
+              <div class="node-title">IT Audit &amp; Assurance</div>
+              <span class="node-badge badge-green">ISACA CISA</span>
+            </div>
+            <div class="node-desc">SOC 1/2/3, PCI-DSS v4.0, internal audit control testing &amp; regulatory examination readiness.</div>
+            <div class="node-footer"><span class="node-framework">NICE: OV-LEA</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <!-- Row 2 Track C -->
+          <div class="node-card card-c" id="t2-c-r2-c1">
+            <div class="node-header">
+              <div class="node-title">Data Privacy &amp; PDP</div>
+              <span class="node-badge badge-green">NIST Privacy</span>
+            </div>
+            <div class="node-desc">GDPR, CCPA/CPRA, UU PDP compliance, privacy impact assessments (PIA) &amp; data lifecycle mapping.</div>
+            <div class="node-footer">
+              <span class="bridge-indicator bridge-grc">&harr; Data Flow</span>
+              <span class="node-role-code">ISO 27701</span>
+            </div>
+          </div>
+
+          <div class="node-card card-c" id="t2-c-r2-c2">
+            <div class="node-header">
+              <div class="node-title">Third-Party Risk (TPRM)</div>
+              <span class="node-badge badge-green">CSF: GV.SC</span>
+            </div>
+            <div class="node-desc">Cyber Supply Chain Risk Mgmt (C-SCRM), vendor questionnaires (SIG/CAIQ), continuous monitoring.</div>
+            <div class="node-footer"><span class="node-framework">NIST SP 800-161</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+
+          <div class="node-card card-c" id="t2-c-r2-c3">
+            <div class="node-header">
+              <div class="node-title">Cloud Governance</div>
+              <span class="node-badge badge-green">CSA CCM</span>
+            </div>
+            <div class="node-desc">Shared responsibility audit, FedRAMP, cloud landing zone policy enforcement &amp; cost-security governance.</div>
+            <div class="node-footer"><span class="node-framework">CSF: GV.PO</span><span class="node-role-code">L3 Spec</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 1: CYBERSECURITY CORE -->
+  <div class="tier-row" id="tier-1-row" style="height: 290px;">
+    <div class="tier-sidebar">
+      <div class="tier-label">TIER 1: CYBERSECURITY CORE</div>
+      <div class="tier-sublabel">Essential Security Capabilities &amp; Cross-Discipline Foundation</div>
+      <div style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #94A3B8;">
+        NICE: PR-CDA · PR-VAM · OV-MGT
+      </div>
+    </div>
+
+    <div class="tier-content">
+      <div class="track-col track-base" style="width: 100%;">
+        <div class="track-header">
+          <div class="track-header-title">Cybersecurity Operational Anchors (Entry-to-Mid Bridge)</div>
+          <div class="track-header-meta">NIST CSF 2.0 CORE MAPPING [ID · PR · DE · RS · GV]</div>
+        </div>
+        <div class="grid-1x6" id="grid-tier-1">
+          <!-- Aligned under Track A (Offensive) -->
+          <div class="node-card card-core-a" id="t1-c1">
+            <div class="node-header">
+              <div class="node-title">Basic Pentesting</div>
+              <span class="node-badge badge-red">ATT&amp;CK Recon</span>
+            </div>
+            <div class="node-desc">Reconnaissance, Nmap port scanning, vulnerability validation, basic exploit frameworks.</div>
+            <div class="node-footer"><span class="node-framework">Offensive Mindset</span><span class="node-role-code">L2 Core</span></div>
+          </div>
+
+          <div class="node-card card-core-a" id="t1-c2">
+            <div class="node-header">
+              <div class="node-title">Vulnerability Mgmt</div>
+              <span class="node-badge badge-red">CSF: ID.RA</span>
+            </div>
+            <div class="node-desc">Asset scanning (Nessus/Qualys), CVSS v3.1/v4.0 scoring, patch triage &amp; remediation workflows.</div>
+            <div class="node-footer"><span class="node-framework">NICE: PR-VAM</span><span class="node-role-code">L2 Core</span></div>
+          </div>
+
+          <!-- Aligned under Track B (Defensive) -->
+          <div class="node-card card-core-b" id="t1-c3">
+            <div class="node-header">
+              <div class="node-title">Network &amp; Endpoint Security</div>
+              <span class="node-badge badge-blue">CSF: PR.PT</span>
+            </div>
+            <div class="node-desc">Next-Gen Firewalls, IDS/IPS tuning, EDR agent deployment, host hardening &amp; CIS benchmarks.</div>
+            <div class="node-footer"><span class="node-framework">NICE: PR-INF</span><span class="node-role-code">L2 Core</span></div>
+          </div>
+
+          <div class="node-card card-core-b" id="t1-c4">
+            <div class="node-header">
+              <div class="node-title">SecOps Fundamentals</div>
+              <span class="node-badge badge-blue">CSF: DE.CM</span>
+            </div>
+            <div class="node-desc">Security monitoring, telemetry feeds, log parsing, baseline anomalies &amp; shift handover.</div>
+            <div class="node-footer"><span class="node-framework">NICE: PR-CDA</span><span class="node-role-code">L2 Core</span></div>
+          </div>
+
+          <div class="node-card card-core-b" id="t1-c5">
+            <div class="node-header">
+              <div class="node-title">AppSec Fundamentals</div>
+              <span class="node-badge badge-blue">OWASP Top 10</span>
+            </div>
+            <div class="node-desc">Secure SDLC principles, code analysis basics, injection defenses, session handling &amp; crypto basics.</div>
+            <div class="node-footer"><span class="node-framework">OWASP ASVS</span><span class="node-role-code">L2 Core</span></div>
+          </div>
+
+          <!-- Aligned under Track C (GRC) -->
+          <div class="node-card card-core-c" id="t1-c6">
+            <div class="node-header">
+              <div class="node-title">Security Governance &amp; Risk</div>
+              <span class="node-badge badge-green">CSF: GV.PO</span>
+            </div>
+            <div class="node-desc">CIA Triad, defense-in-depth, policy development, qualitative risk matrix &amp; compliance baselines.</div>
+            <div class="node-footer"><span class="node-framework">NICE: OV-PMA</span><span class="node-role-code">L2 Core</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 0: FOUNDATIONS & CROSS-DOMAIN COMPETENCIES -->
+  <div class="tier-row" id="tier-0-row" style="height: 290px;">
+    <div class="tier-sidebar">
+      <div class="tier-label">TIER 0: FOUNDATIONS</div>
+      <div class="tier-sublabel">Core Computer Science, Systems &amp; IT Infrastructure Competencies</div>
+      <div style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #94A3B8;">
+        NICE: Foundational KSA
+      </div>
+    </div>
+
+    <div class="tier-content">
+      <div class="track-col track-base" style="width: 100%;">
+        <div class="track-header">
+          <div class="track-header-title">Technical Prerequisites (Foundational Knowledge, Skills &amp; Abilities)</div>
+          <div class="track-header-meta">UNIVERSAL CS/IT COMPETENCY BASE</div>
+        </div>
+        <div class="grid-1x8" id="grid-tier-0">
+          <div class="node-card card-found" id="t0-c1">
+            <div class="node-header">
+              <div class="node-title">Programming &amp; Scripting</div>
+              <span class="node-badge badge-slate">Code</span>
+            </div>
+            <div class="node-desc">Python automation, Bash, PowerShell, C/C++ memory models &amp; data structures.</div>
+            <div class="node-footer"><span class="node-framework">Git / CLI</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+
+          <div class="node-card card-found" id="t0-c2">
+            <div class="node-header">
+              <div class="node-title">Operating Systems</div>
+              <span class="node-badge badge-slate">Win / Linux</span>
+            </div>
+            <div class="node-desc">Windows internals, Linux kernel, bash, services, permissions &amp; process memory.</div>
+            <div class="node-footer"><span class="node-framework">SysInternals</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+
+          <div class="node-card card-found" id="t0-c3">
+            <div class="node-header">
+              <div class="node-title">Computer Networking</div>
+              <span class="node-badge badge-slate">TCP/IP</span>
+            </div>
+            <div class="node-desc">OSI layers, routing, switching, DNS/DHCP, subnets, Wireshark packet capture.</div>
+            <div class="node-footer"><span class="node-framework">RFC Standards</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+
+          <div class="node-card card-found" id="t0-c4">
+            <div class="node-header">
+              <div class="node-title">Infrastructure &amp; Virt.</div>
+              <span class="node-badge badge-slate">Infra</span>
+            </div>
+            <div class="node-desc">Active Directory, Group Policy, VMware, Hyper-V, Docker containers &amp; K8s.</div>
+            <div class="node-footer"><span class="node-framework">Systems Admin</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+
+          <div class="node-card card-found" id="t0-c5">
+            <div class="node-header">
+              <div class="node-title">Identity &amp; Access (IAM)</div>
+              <span class="node-badge badge-slate">Auth</span>
+            </div>
+            <div class="node-desc">OAuth2, OIDC, SAML, Kerberos, MFA, RBAC/ABAC models &amp; Zero Trust principles.</div>
+            <div class="node-footer"><span class="node-framework">NIST SP 800-63</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+
+          <div class="node-card card-found" id="t0-c6">
+            <div class="node-header">
+              <div class="node-title">Database &amp; Web</div>
+              <span class="node-badge badge-slate">Web</span>
+            </div>
+            <div class="node-desc">HTTP/HTTPS protocol, REST APIs, SQL/NoSQL databases, web server stacks.</div>
+            <div class="node-footer"><span class="node-framework">W3C / RFC</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+
+          <div class="node-card card-found" id="t0-c7">
+            <div class="node-header">
+              <div class="node-title">Cloud Computing</div>
+              <span class="node-badge badge-slate">Cloud</span>
+            </div>
+            <div class="node-desc">AWS, Azure, GCP core primitives: compute, VPC, storage, serverless &amp; IAM roles.</div>
+            <div class="node-footer"><span class="node-framework">Cloud Basics</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+
+          <div class="node-card card-found" id="t0-c8">
+            <div class="node-header">
+              <div class="node-title">Security Fundamentals</div>
+              <span class="node-badge badge-slate">Ethics</span>
+            </div>
+            <div class="node-desc">Symmetric/asymmetric crypto, hashing, digital signatures, ethics &amp; legal boundaries.</div>
+            <div class="node-footer"><span class="node-framework">Core Security</span><span class="node-role-code">L1 Base</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- In-browser Dynamic Path Calculation Script -->
+<script>
+  function renderAllConnectors() {
+    const container = document.getElementById('dynamic-paths');
+    container.innerHTML = '';
+
+    function getBounds(id) {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return {
+        x: Math.round(r.left + r.width / 2),
+        y: Math.round(r.top + r.height / 2),
+        top: Math.round(r.top),
+        bottom: Math.round(r.bottom),
+        left: Math.round(r.left),
+        right: Math.round(r.right),
+        width: Math.round(r.width),
+        height: Math.round(r.height)
+      };
+    }
+
+    function addLine(x1, y1, x2, y2, color, marker, dashed = false, width = 3) {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', width);
+      if (dashed) line.setAttribute('stroke-dasharray', '8,5');
+      if (marker) line.setAttribute('marker-end', `url(#${marker})`);
+      container.appendChild(line);
+    }
+
+    function addCurved(x1, y1, x2, y2, color, marker, dashed = false, width = 3) {
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const midY = (y1 + y2) / 2;
+      const d = `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`;
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', color);
+      path.setAttribute('stroke-width', width);
+      if (dashed) path.setAttribute('stroke-dasharray', '8,5');
+      if (marker) path.setAttribute('marker-end', `url(#${marker})`);
+      container.appendChild(path);
+    }
+
+    function addBiHorizontal(x1, y1, x2, y2, color, mStart, mEnd, dashed = false, width = 3.2) {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', width);
+      if (dashed) line.setAttribute('stroke-dasharray', '8,5');
+      if (mStart) line.setAttribute('marker-start', `url(#${mStart})`);
+      if (mEnd) line.setAttribute('marker-end', `url(#${mEnd})`);
+      container.appendChild(line);
+    }
+
+    // 1. TIER 0 -> TIER 1 DIRECT PREREQUISITES & RECOMMENDED PATHS
+    const t0_c1 = getBounds('t0-c1');
+    const t0_c2 = getBounds('t0-c2');
+    const t0_c3 = getBounds('t0-c3');
+    const t0_c4 = getBounds('t0-c4');
+    const t0_c5 = getBounds('t0-c5');
+    const t0_c6 = getBounds('t0-c6');
+    const t0_c7 = getBounds('t0-c7');
+    const t0_c8 = getBounds('t0-c8');
+
+    const t1_c1 = getBounds('t1-c1');
+    const t1_c2 = getBounds('t1-c2');
+    const t1_c3 = getBounds('t1-c3');
+    const t1_c4 = getBounds('t1-c4');
+    const t1_c5 = getBounds('t1-c5');
+    const t1_c6 = getBounds('t1-c6');
+
+    // Direct Prerequisites (Solid Lines):
+    // Programming & Scripting -> Basic Pentesting (Red)
+    if (t0_c1 && t1_c1) addCurved(t0_c1.x, t0_c1.top, t1_c1.x, t1_c1.bottom + 4, '#DC2626', 'arrow-solid-red', false, 3.2);
+    // Operating Systems -> Vulnerability Mgmt (Red)
+    if (t0_c2 && t1_c2) addCurved(t0_c2.x, t0_c2.top, t1_c2.x, t1_c2.bottom + 4, '#DC2626', 'arrow-solid-red', false, 3.2);
+    // Computer Networking -> Network & Endpoint Security (Blue)
+    if (t0_c3 && t1_c3) addCurved(t0_c3.x, t0_c3.top, t1_c3.x, t1_c3.bottom + 4, '#2563EB', 'arrow-solid-blue', false, 3.2);
+    // Infrastructure & Virt -> SecOps Fundamentals (Blue)
+    if (t0_c4 && t1_c4) addCurved(t0_c4.x, t0_c4.top, t1_c4.x, t1_c4.bottom + 4, '#2563EB', 'arrow-solid-blue', false, 3.2);
+    // Database & Web -> AppSec Fundamentals (Blue)
+    if (t0_c6 && t1_c5) addCurved(t0_c6.x, t0_c6.top, t1_c5.x, t1_c5.bottom + 4, '#2563EB', 'arrow-solid-blue', false, 3.2);
+    // Security Fundamentals -> Security Governance & Risk (Green)
+    if (t0_c8 && t1_c6) addCurved(t0_c8.x, t0_c8.top, t1_c6.x, t1_c6.bottom + 4, '#059669', 'arrow-solid-green', false, 3.2);
+
+    // Cross-Domain / Recommended Skills (Dashed Lines):
+    // IAM -> SecOps Fundamentals
+    if (t0_c5 && t1_c4) addCurved(t0_c5.x, t0_c5.top, t1_c4.x - 25, t1_c4.bottom + 4, '#64748B', 'arrow-dashed-slate', true, 2.5);
+    // Cloud Computing -> AppSec & Network Security
+    if (t0_c7 && t1_c5) addCurved(t0_c7.x - 15, t0_c7.top, t1_c5.x + 25, t1_c5.bottom + 4, '#64748B', 'arrow-dashed-slate', true, 2.5);
+    // Infrastructure -> Network & Endpoint Security
+    if (t0_c4 && t1_c3) addCurved(t0_c4.x - 20, t0_c4.top, t1_c3.x + 30, t1_c3.bottom + 4, '#64748B', 'arrow-dashed-slate', true, 2.5);
+
+    // 2. TIER 1 -> TIER 2 TRACK PROGRESSIONS
+    const track_a_t2 = getBounds('track-a-tier2');
+    const track_b_t2 = getBounds('track-b-tier2');
+    const track_c_t2 = getBounds('track-c-tier2');
+
+    // Track A Vertical Progression (Solid Red)
+    if (t1_c1 && t1_c2 && track_a_t2) {
+      const midOffensive = Math.round((t1_c1.x + t1_c2.x) / 2);
+      addLine(midOffensive, t1_c1.top, midOffensive, track_a_t2.bottom + 4, '#DC2626', 'arrow-solid-red', false, 4.2);
+    }
+    // Track B Vertical Progression (Solid Blue)
+    if (t1_c4 && track_b_t2) {
+      addLine(t1_c4.x, t1_c4.top, t1_c4.x, track_b_t2.bottom + 4, '#2563EB', 'arrow-solid-blue', false, 4.2);
+    }
+    // Track C Vertical Progression (Solid Green)
+    if (t1_c6 && track_c_t2) {
+      addLine(t1_c6.x, t1_c6.top, t1_c6.x, track_c_t2.bottom + 4, '#059669', 'arrow-solid-green', false, 4.2);
+    }
+
+    // Cross-Domain Bridges Tier 1 -> Tier 2 (Dashed Lines)
+    if (t1_c5 && track_a_t2) {
+      addCurved(t1_c5.x - 40, t1_c5.top, track_a_t2.right - 60, track_a_t2.bottom + 4, '#64748B', 'arrow-dashed-slate', true, 2.5);
+    }
+    if (t1_c2 && track_c_t2) {
+      addCurved(t1_c2.x + 40, t1_c2.top, track_c_t2.left + 60, track_c_t2.bottom + 4, '#64748B', 'arrow-dashed-slate', true, 2.5);
+    }
+
+    // 3. TIER 2 -> TIER 3 ADVANCED MASTERY
+    const track_a_t3 = getBounds('track-a-tier3');
+    const track_b_t3 = getBounds('track-b-tier3');
+    const track_c_t3 = getBounds('track-c-tier3');
+
+    // Prominent Vertical Spine Connections
+    if (track_a_t2 && track_a_t3) {
+      addLine(track_a_t2.x, track_a_t2.top, track_a_t3.x, track_a_t3.bottom + 4, '#DC2626', 'arrow-solid-red', false, 4.5);
+    }
+    if (track_b_t2 && track_b_t3) {
+      addLine(track_b_t2.x, track_b_t2.top, track_b_t3.x, track_b_t3.bottom + 4, '#2563EB', 'arrow-solid-blue', false, 4.5);
+    }
+    if (track_c_t2 && track_c_t3) {
+      addLine(track_c_t2.x, track_c_t2.top, track_c_t3.x, track_c_t3.bottom + 4, '#059669', 'arrow-solid-green', false, 4.5);
+    }
+
+    // 4. HORIZONTAL COMPLEMENTARY / PURPLE TEAMING BRIDGES AT TIER 2 (Direct Card-to-Card)
+    // Between Track A and Track B:
+    const t2_a_r1_c4 = getBounds('t2-a-r1-c4'); // Mobile Pentest
+    const t2_b_r1_c1 = getBounds('t2-b-r1-c1'); // SOC Operations
+    const t2_a_r2_c4 = getBounds('t2-a-r2-c4'); // Bug Bounty & Research
+    const t2_b_r2_c1 = getBounds('t2-b-r2-c1'); // DevSecOps
+
+    if (t2_a_r1_c4 && t2_b_r1_c1) {
+      // Solid Purple Bidirectional Arrow: Mobile Pentest <---> SOC Operations
+      addBiHorizontal(t2_a_r1_c4.right + 2, t2_a_r1_c4.y, t2_b_r1_c1.left - 2, t2_b_r1_c1.y, '#9333EA', 'arrow-purple-start', 'arrow-purple-end', false, 3.5);
+    }
+    if (t2_a_r2_c4 && t2_b_r2_c1) {
+      // Dashed Purple Bidirectional Arrow: Bug Bounty <---> DevSecOps Feedback
+      addBiHorizontal(t2_a_r2_c4.right + 2, t2_a_r2_c4.y, t2_b_r2_c1.left - 2, t2_b_r2_c1.y, '#9333EA', 'arrow-purple-start', 'arrow-purple-end', true, 2.8);
+    }
+
+    // Between Track B and Track C:
+    const t2_b_r1_c4 = getBounds('t2-b-r1-c4'); // Cloud Security Eng.
+    const t2_c_r1_c1 = getBounds('t2-c-r1-c1'); // Cybersecurity Governance
+    const t2_b_r2_c4 = getBounds('t2-b-r2-c4'); // ICS / OT Defense
+    const t2_c_r2_c1 = getBounds('t2-c-r2-c1'); // Data Privacy & PDP
+
+    if (t2_b_r1_c4 && t2_c_r1_c1) {
+      // Solid Green Bidirectional Arrow: Cloud Security <---> Cybersecurity Governance
+      addBiHorizontal(t2_b_r1_c4.right + 2, t2_b_r1_c4.y, t2_c_r1_c1.left - 2, t2_c_r1_c1.y, '#059669', 'arrow-green-start', 'arrow-green-end', false, 3.5);
+    }
+    if (t2_b_r2_c4 && t2_c_r2_c1) {
+      // Dashed Green Bidirectional Arrow: ICS Defense <---> Data Privacy & Risk Audit
+      addBiHorizontal(t2_b_r2_c4.right + 2, t2_b_r2_c4.y, t2_c_r2_c1.left - 2, t2_c_r2_c1.y, '#059669', 'arrow-green-start', 'arrow-green-end', true, 2.8);
+    }
+  }
+
+  // Run on layout load
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(renderAllConnectors, 250);
+  });
+</script>
+
+</body>
+</html>
